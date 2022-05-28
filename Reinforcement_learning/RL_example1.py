@@ -52,4 +52,13 @@ if __name__ == '__main__':
                 action = model.predict(np.expand_dims(state, axis=0)).numpy()   # 选择模型计算出的 Q 值最大的动作
                 action = action[0]
 
-        
+            # 让环境执行动作，获得执行完动作的下一状态，动作的奖励，游戏是否已结束以及额外信息
+            next_state, reward, done, info = env.step(action)
+            # 如果游戏已结束，给予大的负奖励
+            reward = -10. if done else reward
+            # 将(state, action, reward, next_state, done)添加到经验回放池中
+            replay_buffer.append((state, action, reward, next_state, 1 if done else 0))
+            # 更新当前 state
+            state = next_state
+
+            
