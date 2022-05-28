@@ -56,9 +56,28 @@ if __name__ == '__main__':
             next_state, reward, done, info = env.step(action)
             # 如果游戏已结束，给予大的负奖励
             reward = -10. if done else reward
-            # 将(state, action, reward, next_state, done)添加到经验回放池中
+            # 将(state, action, reward, next_state, done)添加到经验回放池中，这就是一组经验
             replay_buffer.append((state, action, reward, next_state, 1 if done else 0))
             # 更新当前 state
             state = next_state
 
+            if done:                # 游戏结束则退出本轮循环，进行下一个 episode
+                print("episode %d, epsilon %f, score %d" % (episode_id, epsilon, t))
+                break
             
+            if len(replay_buffer) >= batch_size:
+                # 从经验回放池中随机抽取 batch_size 个经验，并分别转换为 Numpy 数组
+                batch_state, batch_action, batch_reward, batch_next_state, batch_done = zip(
+                    *random.sample(replay_buffer, batch_size))
+                batch_state, batch_reward, batch_next_state, batch_done = \
+                    [np.array(a, dtype=np.float32) for a in [batch_state, batch_reward, batch_next_state, batch_done]]
+                batch_action = np.array(batch_action, dtype=np.int32)
+
+                q_value = model(batch_next_state)
+                y = batch_reward + (gamma * tf.reduce_max(q_value, axis=1)) * (1 - batch_done)  # 计算 y 值
+                with tf.GradientTape() as tape:
+                    loss = tf.keras.losses.mean_squared_error(  # 最小化 y 和 q_value 的距离
+                        y_true=y,
+                        y_pred=tf.reduce_sum(model(batch_state) * tf.one_hot(batch_action, depth=2), axis=1))
+                grads = tape.gradient(loss, model.variables)
+                optimizer.apply_gradients(grads_and_vars=zip(grads, model.variables))       # 计算梯度并更新参数
