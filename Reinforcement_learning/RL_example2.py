@@ -21,7 +21,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 assert tf.__version__.startswith('2.')
 
 learning_rate = 0.0002
-gama = 0.98
+gamma = 0.98
 
 class Policy(keras.Model):
     # 定义策略网络，生成动作的概率分布
@@ -79,7 +79,7 @@ def main():
                 prob = pi(s)    # 动作分布：[1,2]
                 # 从类别分布中选择动作，shape为[1]
                 a = tf.random.categorical(tf.math.log(prob), 1)[0]
-                int(a.numpy())  # Tensor转int
+                a = int(a.numpy())  # Tensor转int
                 s_prime, r, done, info = env.step(a)
                 # 记录动作a和动作产生的奖励r
                 # prob shape为[1,2]
@@ -90,6 +90,7 @@ def main():
                 env.render()
 
                 if done:    # 当前episode终止
+                    print("episode %d, score %d" % (n_epi, t))
                     break
             # episode 终止后，训练一次网络
             pi.train_net(tape)
