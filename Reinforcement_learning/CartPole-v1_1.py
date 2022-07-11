@@ -81,3 +81,4 @@ if __name__ == '__main__':
                         y_pred=tf.reduce_sum(model(batch_state) * tf.one_hot(batch_action, depth=2), axis=1))
                 grads = tape.gradient(loss, model.variables)
                 optimizer.apply_gradients(grads_and_vars=zip(grads, model.variables))       # 计算梯度并更新参数
+    env.close()
