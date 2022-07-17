@@ -31,6 +31,7 @@ def Run_DQN(agent):
     global EPSILON_MIN
     global minibatch                
     global lr
+    global action_space_shape
     optimizer = tf.keras.optimizers.Adam(learning_rate = lr)
     for episode in range(n_episodes):
         state = env.reset()
@@ -62,17 +63,17 @@ def Run_DQN(agent):
                 q_target = batch_reward + (gamma * max_target_q_values) * (1 - batch_done) 
 
                 # comput action-value function
-                q_values = agent.action_net(batch_state)
-                a_q_values = tf.reduce_sum(q_values * tf.one_hot(batch_action, depth=2), axis=1)
+                # q_values = agent.action_net(batch_state)
+                # a_q_values = tf.reduce_sum(q_values * tf.one_hot(batch_action, depth=action_space_shape), axis=1)
 
                 # comput loss and gradient descent
                 with tf.GradientTape() as tape:
                     loss = tf.keras.losses.mean_squared_error(
                         y_true=q_target,
-                        y_pred=tf.reduce_sum(agent.action_net(batch_state) * tf.one_hot(batch_action, depth=2), axis=1))
+                        y_pred=tf.reduce_sum(agent.action_net(batch_state) * tf.one_hot(batch_action, depth=action_space_shape), axis=1))
                 grads = tape.gradient(loss, agent.action_net.variables)
                 optimizer.apply_gradients(grads_and_vars=zip(grads, agent.action_net.variables))
-        if episode % TARGET_UPDATE_FREQUENCY == 0 & episode != 0:
+        if (episode + 1) % TARGET_UPDATE_FREQUENCY == 0:
             agent.target_net.set_weights(agent.action_net.get_weights())        # 每隔TARGET_UPDATE_FREQUENCY 局更新一次target action-value function 的权重
             print("Avg Reward: ", np.mean(REWARD_BUFFER[:episode]))
     
