@@ -4,8 +4,20 @@
 import tensorboard
 import tensorflow as tf 
 
-tf.enable_eager_execution()       
+tf.enable_eager_execution()
+tf.Tensor()
+tf.Tensor.numpy()
+tf.Variable()
+tf.Variable.assign()
+tf.Variable.assign_add()
+tf.Variable.assign_sub()
+tf.Variable.read_value()
+tf.convert_to_tensor()
 
+tf.matmul()
+tf.constant()
+tf.add()
+tf.multiply()
 tf.argmax()         # 找到最大值并返回索引
 tf.reduce_max()     # 求最大值
 tf.reduce_mean()    # 求平均值
@@ -13,6 +25,8 @@ tf.square()
 tf.reduce_sum()
 tf.one_hot()
 tf.cast()
+tf.expand_dims()
+tf.newaxis()
 tf.keras.utils.to_categorical()
 
 tf.data.Dataset.from_tensor_slices()
@@ -37,15 +51,24 @@ tf.keras.layers.MaxPooling2D()
 tf.keras.layers.AveragePooling2D()
 
 tf.keras.losses.mean_squared_error()    # 均方损失函数
+tf.keras.losses.binary_crossentropy()
 tf.keras.losses.BinaryCrossentropy()
+tf.keras.losses.categorical_crossentropy()
 tf.keras.losses.CategoricalCrossentropy()
+tf.keras.losses.sparse_categorical_crossentropy()
 tf.keras.losses.SparseCategoricalCrossentropy()
 
 tf.keras.optimizers.Adam()
 
 tf.keras.metrics.Mean()
+tf.keras.metrics.Mean().result()
+tf.keras.metrics.Mean().result().numpy()
+tf.keras.metrics.Mean().reset_states()
 tf.keras.metrics.Accuracy()
+tf.keras.metrics.categorical_accuracy()
 tf.keras.metrics.CategoricalAccuracy()
+tf.keras.metrics.sparse_categorical_accuracy()
+tf.keras.metrics.SparseCategoricalAccuracy()
 tf.keras.metrics.result()
 
 tf.keras.callbacks.EarlyStopping()
