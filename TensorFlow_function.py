@@ -1,8 +1,11 @@
 # Tensorflow的class和method
 # 鼠标放在函数名上不动，可以查看函数的输入参数和例子
 
-import tensorboard
+# import tensorboard
 import tensorflow as tf 
+
+tf.keras.Model()
+tf.keras.Input()
 
 tf.enable_eager_execution()
 tf.Tensor()
@@ -28,19 +31,30 @@ tf.cast()
 tf.expand_dims()
 tf.newaxis()
 tf.keras.utils.to_categorical()
+tf.ones()
+tf.zeros()
+
+tf.io.read_file()
+tf.image.decode_image()
+tf.image.decode_jpeg()
+tf.image.resize()
 
 tf.data.Dataset.from_tensor_slices()
+tf.data.experimental.AUTOTUNE()
 tf.data.Dataset.repeat()
 tf.data.Dataset.shuffle()
 tf.data.Dataset.batch()
 tf.data.Dataset.take()
+tf.data.Dataset.skip()
 tf.data.Dataset.map()
 tf.data.Dataset.zip()
+tf.data.Dataset.prefetch()
 
 tf.keras.Sequential()
 tf.keras.Sequential().trainable_weights()
 tf.keras.Sequential().trainable_variables()
 
+tf.keras.layers.get_shape()
 tf.keras.layers.Dense()
 tf.keras.layers.Dropout()
 tf.keras.layers.Flatten()
@@ -49,6 +63,13 @@ tf.keras.layers.Conv2D()
 tf.keras.layers.MaxPool2D()
 tf.keras.layers.MaxPooling2D()
 tf.keras.layers.AveragePooling2D()
+tf.keras.layers.GlobalAveragePooling2D()
+tf.keras.layers.GlobalMaxPooling2D()
+tf.keras.layers.Layer
+tf.keras.layers.Layer.add_weight()
+
+tf.random_normal_initializer()
+tf.zeros_initializer()
 
 tf.keras.losses.mean_squared_error()    # 均方损失函数
 tf.keras.losses.binary_crossentropy()
@@ -74,10 +95,17 @@ tf.keras.metrics.result()
 tf.keras.callbacks.EarlyStopping()
 tf.keras.callbacks.TensorBoard()
 tf.keras.callbacks.LearningRateScheduler()
+tf.keras.callbacks.ModelCheckpoint()
 
 tf.summary.scalar()
 tf.summary.create_file_writer()
 tf.summary.create_file_writer().set_as_default()
+
+tf.keras.applications.MobileNetV2()
+
+tf.train.Checkpoint()
+tf.train.latest_checkpoint()
+tf.train.Checkpoint().restore()
 
 # tensorboard --logdir logs
 
