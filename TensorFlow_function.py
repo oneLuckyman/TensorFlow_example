@@ -54,6 +54,10 @@ tf.keras.Sequential()
 tf.keras.Sequential().trainable_weights()
 tf.keras.Sequential().trainable_variables()
 
+tf.nn.relu()
+
+tf.concat()
+
 tf.keras.layers.get_shape()
 tf.keras.layers.Dense()
 tf.keras.layers.Dropout()
@@ -66,6 +70,7 @@ tf.keras.layers.AveragePooling2D()
 tf.keras.layers.GlobalAveragePooling2D()
 tf.keras.layers.GlobalMaxPooling2D()
 tf.keras.layers.Layer
+tf.keras.layers.Layer.trainable
 tf.keras.layers.Layer.add_weight()
 
 tf.random_normal_initializer()
@@ -101,6 +106,9 @@ tf.summary.scalar()
 tf.summary.create_file_writer()
 tf.summary.create_file_writer().set_as_default()
 
+tf.keras.applications.VGG16()
+tf.keras.applications.VGG19()
+tf.keras.applications.ResNet50()
 tf.keras.applications.MobileNetV2()
 
 tf.train.Checkpoint()
