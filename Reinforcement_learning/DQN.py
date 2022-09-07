@@ -95,6 +95,14 @@ class Model(tf.keras.Model):
         x = self.layer2(x)
         return x 
 
+class ReplayMemory():
+    def __init__(self, n_state, n_action) -> None:
+        self.n_state = n_state
+        self.n_action = n_action
+        self.MEMORY_SIZE = 1000
+        self.BATCH_SIZE = 64
+        
+
 class Agent():
     global n_episodes
 
