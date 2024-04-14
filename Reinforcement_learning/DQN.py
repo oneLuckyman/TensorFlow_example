@@ -15,9 +15,10 @@ EPSILON_MIN = 0.01                  # 最小探索率
 gamma = 0.9                         # 奖励衰减值
 lr = 0.001                          # 学习率
 n_episodes = 500                    # agent 一共玩多少局
-n_steps = 1000                      # agent 每局玩多少步
+n_steps = 5000                      # agent 每局玩多少步
 TARGET_UPDATE_FREQUENCY = 10        # 每隔多少局更新一次target action-value function的权重
 minibatch = 20                      # 每一次从经验池中抽取多少条经验
+N_MEMORY = 1000
 REWARD_BUFFER = np.empty(shape=n_episodes, dtype=list)      # 总奖励池
 state_shape = (None, 4)             # 状态空间的维度
 action_space_shape = 2              # 动作空间的维度
@@ -101,13 +102,20 @@ class ReplayMemory():
         self.n_action = n_action
         self.MEMORY_SIZE = 1000
         self.BATCH_SIZE = 64
+
+        self.all_state = np.empty(shape=(self.MEMORY_SIZE, self.n_state), dtype=np.float32)
+        self.all_action = np.random.randint(low=0, high=self.n_action, size=self.MEMORY_SIZE, dtype=np.uint8)
+        self.all_reward = np.empty(self.MEMORY_SIZE, dtype=np.float32)
+        self.all_done = np.random.randint(low=0, high=2, size=self.MEMORY_SIZE, dtype=np.uint8)
+        self.all_next_state = np.empty(shape=(self.MEMORY_SIZE, self.n_state), dtype=np.float32)
+        
         
 
 class Agent():
-    global n_episodes
+    global N_MEMORY
 
     def __init__(self, target_net, action_net) -> None:
-        self.exp_replay = deque(maxlen=n_episodes)
+        self.exp_replay = deque(maxlen=N_MEMORY)
         self.target_net = target_net
         self.action_net = action_net
 
