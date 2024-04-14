@@ -25,7 +25,7 @@ tf.argmax()         # 找到最大值并返回索引
 tf.reduce_max()     # 求最大值
 tf.reduce_mean()    # 求平均值
 tf.square()
-tf.reduce_sum()
+tf.reduce_sum()     # 求和
 tf.one_hot()
 tf.cast()
 tf.expand_dims()
@@ -69,6 +69,8 @@ tf.keras.layers.MaxPooling2D()
 tf.keras.layers.AveragePooling2D()
 tf.keras.layers.GlobalAveragePooling2D()
 tf.keras.layers.GlobalMaxPooling2D()
+tf.keras.layers.GRU()
+tf.keras.layers.Lambda()
 tf.keras.layers.Layer
 tf.keras.layers.Layer.trainable
 tf.keras.layers.Layer.add_weight()
